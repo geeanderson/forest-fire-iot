@@ -60,6 +60,11 @@ flowchart LR
 5. CloudWatch alarms e-mail you when the risk reaches level 4–5, when a node goes silent for 2 h and when the
    pipeline receives nothing for 1 h.
 
+## Live demo
+
+The reference pilot runs in Portugal (868 MHz, model retrained on Portuguese data), so it is **not**
+this repository's Brazil configuration: <https://forest-fire-dashboard.streamlit.app/>
+
 ## Repository layout
 
 ```
@@ -230,6 +235,8 @@ If you use this project, please cite:
 > Risk Monitoring and Early Warning Using LoRa, Cloud Computing and Machine Learning. In *Proceedings of the
 > 23rd International Conference on Informatics in Control, Automation and Robotics (ICINCO 2026)* —
 > Volume 2, pages 1169–1176. SCITEPRESS. ISBN 978-989-758-870-9, ISSN 2184-2809.
+>
+> Presentation details: <https://www.insticc.org/node/TechnicalProgram/ICINCO/2026/presentationDetails/153812>
 
 ```bibtex
 @inproceedings{amadordossantos2026forestfire,
@@ -243,7 +250,8 @@ If you use this project, please cite:
   publisher = {SCITEPRESS},
   year      = {2026},
   isbn      = {978-989-758-870-9},
-  issn      = {2184-2809}
+  issn      = {2184-2809},
+  url       = {https://www.insticc.org/node/TechnicalProgram/ICINCO/2026/presentationDetails/153812}
 }
 ```
 
