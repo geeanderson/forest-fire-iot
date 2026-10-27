@@ -1,0 +1,49 @@
+// Forest Fire IoT - site configuration, shared by the sensor nodes and the gateway.
+// This is the only firmware file you need to edit. Copy it and fill in:
+//   cp firmware/site_config.h.example firmware/site_config.h
+// Never commit site_config.h: it holds the Wi-Fi password.
+// The gateway's AWS IoT settings (endpoint, certificates, private key) are not typed here: Terraform
+// generates them in firmware/gateway_aws.h (see step 2 of the main README).
+// Pins and other board details stay in firmware/node/src/config.h and firmware/gateway/src/.
+#pragma once
+
+// ============================================================================
+// LoRa radio - used by the nodes AND the gateway, so they always match
+// ============================================================================
+// Brazil (ANATEL): 902–907.5 MHz and 915–928 MHz. 915.2 MHz is the first AU915 channel;
+// with 125 kHz of bandwidth a 915.0 MHz center would spill below 915 MHz.
+// Other countries: change it to the local ISM band (and use radio hardware for that band).
+#define LORA_FREQUENCY_MHZ    915.2
+#define LORA_BANDWIDTH_KHZ    125.0
+#define LORA_SPREADING_FACTOR 12
+#define LORA_CODING_RATE      6      // 4/6
+#define LORA_SYNC_WORD        0xAB
+#define LORA_PREAMBLE_LENGTH  16
+#define LORA_CRC_ENABLED      true
+// 14 dBm: the value validated in the field pilot; with a ~2.8 dBi antenna the EIRP stays far
+// below ANATEL's limit for this band. Check the local limit (and any duty cycle rule) before
+// raising it or using another country.
+#define LORA_TX_POWER_DBM     14
+
+// ============================================================================
+// Sensor node - change DEVICE_ID and BATTERY_ADC_SCALE before flashing each node
+// ============================================================================
+// Unique per node: "node-01", "node-02", ... (the cloud and the dashboard use this id).
+#define DEVICE_ID              "node-01"
+// Calibrate per board (resistor tolerance varies): measure the battery with a multimeter and
+// set new_scale = measured_V / reported_V * BATTERY_ADC_SCALE (see firmware/node/README.md).
+#define BATTERY_ADC_SCALE      0.004060f
+// Deep sleep between readings (30 min).
+#define SLEEP_INTERVAL_SECONDS 1800
+
+// ============================================================================
+// Gateway
+// ============================================================================
+// Wi-Fi at the gateway site
+#define WIFI_SSID       "your-ssid"
+#define WIFI_PASSWORD   "your-password"
+
+// Optional: also POST every raw packet to your own HTTP logger in the same LAN, for field
+// diagnostics. The body is JSON: {"raw_payload", "rssi_dbm", "snr_db", "gateway_millis"}.
+// Leave it commented out to send to AWS only.
+// #define LOGGER_SERVER_URL "http://192.168.1.10:8000/log"

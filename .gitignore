@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Terraform: state and tfvars hold device private keys and account data
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+cloud/iac/terraform/modules/*/builds/
+
+# Secrets
+firmware/site_config.h
+firmware/gateway_aws.h
+secrets.toml
+*.pem
+*.key
+*.crt
+
+# Models (download from the GitHub Release)
+*.joblib
+model*.tar.gz
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# PlatformIO
+.pio/
+
+!cloud/iac/terraform/certs/AmazonRootCA1.pem

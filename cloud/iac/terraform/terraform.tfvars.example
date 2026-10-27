@@ -1,0 +1,31 @@
+# The only file to edit for the cloud side. Copy it to terraform.tfvars and fill it in.
+# Never commit terraform.tfvars or terraform.tfstate.
+
+# E-mail that receives the fire alerts and the CloudWatch alarms (confirm the SNS subscription e-mail).
+alert_email = "you@example.com"
+
+# Prefix for every resource. The S3 bucket is named "<project_name>-raw-dev" and S3 bucket names are
+# global, so pick something unique (e.g. add your initials).
+project_name = "forest-fire-iot-xyz"
+
+# us-east-1 is the region the project was validated in; sa-east-1 (São Paulo) also offers every service used.
+aws_region = "us-east-1"
+
+# One entry per sensor node, keyed by its DEVICE_ID in firmware/site_config.h.
+#   lat, lon: real position (days without rain and the dashboard map)
+#   label, city: optional, shown on the dashboard
+# Each node also gets a "silent node" alarm. The dashboard's node list comes from here too:
+#   tofu output -raw dashboard_nodes_toml
+nodes = {
+  "node-01" = { lat = -23.1810, lon = -50.6470, label = "Node 01", city = "Cornélio Procópio, PR" }
+  "node-02" = { lat = -23.1900, lon = -50.6550, label = "Node 02", city = "Cornélio Procópio, PR" }
+}
+
+# Optional: push notification on every stored reading (https://ntfy.sh). Anyone who knows the topic can
+# read it, so pick a hard-to-guess name.
+# ntfy_topic = "forest-fire-xyz-7f3k9"
+
+# Rarely changed (defaults shown):
+# environment         = "dev"
+# dynamodb_table_name = "forest-fire-readings"
+# create_dashboard_user = true   # false: bring your own AWS credentials for the dashboard
